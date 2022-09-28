@@ -1,14 +1,11 @@
-import type { NextPage } from 'next'
 import type { post } from '../types'
 
 import Head from 'next/head'
 
 import { getPosts } from '../services'
-
 import { Categories, PostCard, PostWidget } from '../components'
 
 const Home = ({ posts }: { posts: post[] }) => {
-  console.log(posts)
   return (
     <div className='container mx-auto px-10 mb-8'>
       <Head>
