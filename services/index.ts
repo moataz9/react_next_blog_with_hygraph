@@ -1,4 +1,5 @@
 import { request, gql } from 'graphql-request'
+import type { category, post } from '../types'
 
 const graphqlAPI = process.env.NEXT_PUBLIC_HYGRAPH_ENDPOINT as string
 
@@ -34,7 +35,41 @@ export const getPosts = async () => {
   `
 
   const results = await request(graphqlAPI, query)
-  return results.postsConnection.edges
+  return results.postsConnection.edges as post[]
+}
+
+export const getPostDetails = async (slug: string) => {
+  const query = gql`
+    query GetPostDetails($slug: String!) {
+      post(where: { slug: $slug }) {
+        author {
+          bio
+          id
+          name
+          photo {
+            url
+          }
+        }
+        createdAt
+        slug
+        title
+        excerpt
+        featuredImage {
+          url
+        }
+        categories {
+          name
+          slug
+        }
+        content {
+          raw
+        }
+      }
+    }
+  `
+
+  const results = await request(graphqlAPI, query, { slug })
+  return results.post as post
 }
 
 export const getRecentPosts = async () => {
@@ -50,7 +85,7 @@ export const getRecentPosts = async () => {
   `
 
   const result = await request(graphqlAPI, query)
-  return result.posts
+  return result.posts as post[]
 }
 
 export const getSimilarPosts = async (categories?: string[], slug?: string) => {
@@ -67,6 +102,20 @@ export const getSimilarPosts = async (categories?: string[], slug?: string) => {
     }
   `
 
-  const result = await request(graphqlAPI, query, {categories, slug})
-  return result.posts
+  const result = await request(graphqlAPI, query, { categories, slug })
+  return result.posts as post[]
+}
+
+export const getCateegories = async () => {
+  const query = gql`
+    query getCategories {
+      categories {
+        name
+        slug
+      }
+    }
+  `
+
+  const result = await request(graphqlAPI, query)
+  return result.categories as category[]
 }

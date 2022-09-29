@@ -1,15 +1,30 @@
-type author = {
+import type { ReactFragment } from "react"
+
+export type author = {
   bio: string
   id: string
   name: string
   photo: photo
 }
-type photo = {
+export type photo = {
   url: string
 }
-type category = {
+export type category = {
   name: string
   slug: string
+}
+
+export type content = {
+  raw: {
+    children: children[]
+  }
+}
+
+export type children = {
+  type?: string
+  code?: boolean
+  text: string[]
+  children?: children[]
 }
 
 export type post = {
@@ -23,4 +38,5 @@ export type post = {
   featuredImage: photo
   categories: category[]
   node?: post
+  content?: content
 }
