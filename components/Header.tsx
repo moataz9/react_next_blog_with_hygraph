@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 
-import { getCateegories } from '../services'
+import { getCategories } from '../services'
 import type { category } from '../types'
 
 const Header = () => {
   const [categories, setCategories]: [category[], Function] = useState([])
 
   useEffect(() => {
-    getCateegories().then(newCategories => setCategories(newCategories))
+    getCategories().then(newCategories => setCategories(newCategories))
   }, [])
 
   return (

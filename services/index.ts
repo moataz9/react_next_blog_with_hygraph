@@ -106,7 +106,7 @@ export const getSimilarPosts = async (categories?: string[], slug?: string) => {
   return result.posts as post[]
 }
 
-export const getCateegories = async () => {
+export const getCategories = async () => {
   const query = gql`
     query getCategories {
       categories {
@@ -167,4 +167,40 @@ export const getFeaturedPosts = async () => {
   `
   const result = await request(graphqlAPI, query)
   return result.posts as post[]
+}
+
+export const getCategoryPost = async (slug: string) => {
+  const query = gql`
+    query GetCategoryPost($slug: String!) {
+      postsConnection(where: { categories_some: { slug: $slug } }) {
+        edges {
+          cursor
+          node {
+            author {
+              bio
+              name
+              id
+              photo {
+                url
+              }
+            }
+            createdAt
+            slug
+            title
+            excerpt
+            featuredImage {
+              url
+            }
+            categories {
+              name
+              slug
+            }
+          }
+        }
+      }
+    }
+  `
+
+  const result = await request(graphqlAPI, query, { slug })
+  return result.postsConnection.edges
 }
