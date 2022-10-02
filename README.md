@@ -8,7 +8,7 @@ run
 ```bash
 pnpm i
 ```
-
+after that
 ```bash
 pnpm run dev
 ```
