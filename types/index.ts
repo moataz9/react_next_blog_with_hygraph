@@ -1,4 +1,4 @@
-import type { ReactFragment } from "react"
+import type { ReactFragment } from 'react'
 
 export type author = {
   bio: string
@@ -25,6 +25,12 @@ export type children = {
   code?: boolean
   text: string[]
   children?: children[]
+}
+
+export type comment = {
+  name: string
+  createdAt: string
+  comment: string
 }
 
 export type post = {

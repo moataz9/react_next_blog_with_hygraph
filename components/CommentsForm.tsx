@@ -43,7 +43,6 @@ const CommentsForm = ({ slug }: { slug: string }) => {
     }
 
     submitComment(commentObj).then(res => {
-      console.log(res);
       setShowSuccessMessage(true)
       setTimeout(() => {
         setShowSuccessMessage(false)
