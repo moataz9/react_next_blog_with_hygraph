@@ -1,4 +1,4 @@
-# Next.js + Tailwind CSS BLog useing hygraph
+# Next.js + Tailwind CSS BLog using hygraph
 
 This Blog build with next.js, react.js, ts, tailwind CSS.
 
