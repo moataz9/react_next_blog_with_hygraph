@@ -145,3 +145,26 @@ export const getComments = async (slug: string) => {
   const result = await request(graphqlAPI, query, { slug })
   return result.comments as comment[]
 }
+
+export const getFeaturedPosts = async () => {
+  const query = gql`
+    query GetCategoryPost() {
+      posts(where: {featuredPost: true}) {
+        author {
+          name
+          photo {
+            url
+          }
+        }
+        featuredImage {
+          url
+        }
+        title
+        slug
+        createdAt
+      }
+    }
+  `
+  const result = await request(graphqlAPI, query)
+  return result.posts as post[]
+}
